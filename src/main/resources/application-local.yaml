@@ -1,0 +1,15 @@
+server:
+  port: 8076
+  error:
+    include-message: ALWAYS
+    include-binding-errors: ALWAYS
+    include-stacktrace: ALWAYS
+    include-exception: true
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8070/eureka/
+    registerWithEureka: false
+    fetchRegistry: false

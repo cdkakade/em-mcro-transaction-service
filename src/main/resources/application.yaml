@@ -1,0 +1,61 @@
+spring:
+  application:
+    name: @project.name@
+  liquibase:
+    change-log: classpath:db/changelog.xml
+  profiles:
+    active: local
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    database-platform: org.hibernate.dialect.H2Dialect
+  datasource:
+    driverClassName: org.h2.Driver
+    url: jdbc:h2:mem:em_transaction_db
+    username: sa
+    password:
+server:
+  error:
+    include-message: ALWAYS
+    include-binding-errors: ALWAYS
+    include-stacktrace: NEVER
+    include-exception: false
+springdoc:
+  swagger-ui:
+    urlsPrimaryName: transaction
+  api-docs:
+    path: /openapi/transactions-doc
+info:
+  app:
+    name: @project.name@
+    description: @project.description@
+    version: @project.version@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  info:
+    env:
+      enabled: true
+  endpoint:
+    shutdown:
+      enabled: true
+endpoints:
+  shutdown:
+    enabled: true
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_CLIENT_SERVICEURL_DEFAULTZONE:http://localhost:8070/eureka/}
+    registerWithEureka: true
+    fetchRegistry: true
+
+logging:
+  level:
+    org:
+      zalando:
+        logbook: TRACE
