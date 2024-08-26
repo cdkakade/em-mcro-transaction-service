@@ -12,4 +12,6 @@ public interface TransactionService {
     TransactionResponse addTransaction(TransactionRequest transactionRequest);
 
     TransactionResponse updateTransaction(String transactionId, TransactionRequest transactionRequest);
+
+    TransactionResponse findById(String transactionId);
 }

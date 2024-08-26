@@ -20,6 +20,11 @@ public class TransactionController {
 
     private final TransactionService transactionService;
 
+    @GetMapping(path = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<TransactionResponse> findById(@PathVariable(value = "id") String transactionId) {
+        return ResponseEntity.ok(transactionService.findById(transactionId));
+    }
+
     @GetMapping(produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<List<TransactionResponse>> findAll() {
         return ResponseEntity.ok(transactionService.findAll());
@@ -27,8 +32,7 @@ public class TransactionController {
 
     @PostMapping(produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<TransactionResponse> addTransaction(@Valid @RequestBody TransactionRequest transactionRequest) {
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(transactionService.addTransaction(transactionRequest));
+        return ResponseEntity.status(HttpStatus.CREATED).body(transactionService.addTransaction(transactionRequest));
     }
 
     @PutMapping(path = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE})

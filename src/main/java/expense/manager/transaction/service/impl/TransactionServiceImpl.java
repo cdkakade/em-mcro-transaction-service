@@ -19,6 +19,12 @@ public class TransactionServiceImpl implements TransactionService {
     private final TransactionRepository transactionRepository;
 
     @Override
+    public TransactionResponse findById(String transactionId) {
+        TransactionEntity savedEntity = transactionRepository.findById(transactionId).orElseThrow();
+        return new ModelMapper().map(savedEntity, TransactionResponse.class);
+    }
+
+    @Override
     public List<TransactionResponse> findAll() {
         List<TransactionEntity> transactionEntities = transactionRepository.findAll();
         return new ModelMapper().map(transactionEntities, new TypeToken<List<TransactionResponse>>() {

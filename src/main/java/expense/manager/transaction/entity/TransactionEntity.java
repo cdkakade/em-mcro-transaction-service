@@ -22,4 +22,7 @@ public class TransactionEntity extends BaseEntity {
     @Column
     @Enumerated(EnumType.STRING)
     private TransactionType type;
+
+    @Column(name = "user_id")
+    private String userId;
 }
