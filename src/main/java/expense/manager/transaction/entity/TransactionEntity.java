@@ -25,4 +25,7 @@ public class TransactionEntity extends BaseEntity {
 
     @Column(name = "user_id")
     private String userId;
+
+    @Column(name = "wallet_id")
+    private String walletId;
 }

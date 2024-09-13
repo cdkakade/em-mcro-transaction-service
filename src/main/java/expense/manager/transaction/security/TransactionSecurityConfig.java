@@ -1,15 +1,17 @@
 package expense.manager.transaction.security;
 
+import expense.manager.common.security.SecurityUtil;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig {
+@Profile("!local")
+public class TransactionSecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -18,11 +20,12 @@ public class SecurityConfig {
                         .requestMatchers("/openapi/**", "/swagger-ui/**").permitAll()
                         .anyRequest().authenticated()
                 )
-                .oauth2ResourceServer((oauth2) -> oauth2
-                        .jwt(Customizer.withDefaults())
-                );
+                .oauth2ResourceServer(oauth2 -> {
+                    oauth2.jwt(jwtConfig -> {
+                        jwtConfig.jwtAuthenticationConverter(SecurityUtil.grantedAuthoritiesExtractor());
+                    });
+                });
         return http.build();
     }
-
 
 }
