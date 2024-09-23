@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@FeignClient(value = "wallet-service", dismiss404 = true, url = "http://localhost:8073/")
+@FeignClient(value = "wallet-service", dismiss404 = true)
 public interface WalletClient {
 
     @PutMapping(value = "wallets/{id}", consumes = "application/json")
